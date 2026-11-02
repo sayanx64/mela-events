@@ -1,4 +1,4 @@
-import { AlertCircle, ArrowLeft, CalendarPlus, LoaderCircle, Ticket as TicketIcon } from 'lucide-react'
+import { AlertCircle, ArrowLeft, CalendarPlus, FileDown, LoaderCircle, Ticket as TicketIcon } from 'lucide-react'
 import { motion, useAnimate, useReducedMotion } from 'motion/react'
 import { useEffect, useId, useMemo, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router'
@@ -6,6 +6,7 @@ import { TicketPortrait } from '../components/Ticket.jsx'
 import { EVENTS } from '../data/events.js'
 import { useRegistrations } from '../hooks/useRegistrations.js'
 import { downloadCalendarFile } from '../lib/calendar.js'
+import { downloadTicketPdf } from '../lib/pdf.js'
 import { formatMonthYear, formatShortDate } from '../lib/dates.js'
 import { formatPrice, getEvent, isPast, seatsLeft } from '../lib/events.js'
 import { registrations as store, StorageUnavailableError } from '../lib/store.js'
@@ -122,6 +123,10 @@ function Confirmation({ registration, event, onAnother }) {
         <button type="button" onClick={() => downloadCalendarFile(event, registration)} className="btn btn-secondary">
           <CalendarPlus className="size-5" aria-hidden="true" />
           Add to calendar
+        </button>
+        <button type="button" onClick={() => downloadTicketPdf(event, registration)} className="btn btn-secondary">
+          <FileDown className="size-5" aria-hidden="true" />
+          Download PDF
         </button>
       </div>
       <p className="mt-6 text-[0.9375rem] text-muted">

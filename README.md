@@ -19,7 +19,8 @@ A responsive event management website built for **K Explore, Web Designing**. Br
 - Dark and light mode (follows the system setting, remembers your choice, circular reveal transition)
 - Live countdown timers on the hero tickets and on every event page
 - Animations: draggable ticket stack, page transitions, a "Confirmed" stamp on registration, a drifting photo background
-- Local Storage registration management: My tickets page with QR codes, cancel with undo, add to calendar (.ics), export as JSON and remove all
+- Local Storage registration management: My tickets page with QR codes, cancel with undo, add to calendar (.ics), download ticket as PDF, export as JSON and remove all
+- Scroll-driven reveals, image parallax and a reading progress bar (CSS `animation-timeline`)
 
 ## Tech stack
 
@@ -65,4 +66,4 @@ npm run build    # production build in dist/
 
 ## Credits
 
-Photos are from [Unsplash](https://unsplash.com/license). Fonts are Bricolage Grotesque and Schibsted Grotesk (SIL Open Font License). The events, venues and hosts are made up for this project.
+Photos are from [Unsplash](https://unsplash.com/license). Fonts are Clash Display and Satoshi from Fontshare (ITF Free Font License). The Ferris wheel logo is a hand-drawn style SVG made for this project. The events, venues and hosts are made up for this project.

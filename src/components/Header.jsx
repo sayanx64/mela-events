@@ -4,6 +4,7 @@ import { useNow } from '../hooks/useNow.js'
 import { useRegistrations } from '../hooks/useRegistrations.js'
 import { useTheme } from '../hooks/useTheme.js'
 import { getEvent, isUpcoming } from '../lib/events.js'
+import Logo from './Logo.jsx'
 
 function ThemeToggle() {
   const { theme, toggle } = useTheme()
@@ -46,8 +47,8 @@ export default function Header() {
   return (
     <header className="site-header sticky top-0 z-40">
       <div className="wrap flex h-[4.5rem] items-center justify-between gap-4">
-        <Link to="/" className="wordmark rounded-md text-[1.75rem] sm:text-[2rem]" aria-label="mela home">
-          mela
+        <Link to="/" className="rounded-md" aria-label="mela home">
+          <Logo />
         </Link>
         <nav aria-label="Main" className="flex items-center gap-1 text-[0.9375rem] sm:gap-2 sm:text-base">
           <NavLink to="/events" className={navClass}>

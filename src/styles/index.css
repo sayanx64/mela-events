@@ -8,8 +8,8 @@
    Tokens
    --------------------------------------------------------------------------- */
 @theme {
-  --font-display: 'Bricolage Grotesque Variable', ui-sans-serif, sans-serif;
-  --font-sans: 'Schibsted Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Clash Display', ui-sans-serif, sans-serif;
+  --font-sans: 'Satoshi', ui-sans-serif, system-ui, sans-serif;
 
   /* Raffle-ticket colours, one per category. Ink text sits on all of them. */
   --color-music: #ff6b5b;
@@ -84,7 +84,9 @@
    --------------------------------------------------------------------------- */
 @layer base {
   html {
-    background: var(--bg);
+    background:
+      radial-gradient(circle, var(--line) 1px, transparent 1.4px) 0 0 / 22px 22px,
+      var(--bg);
     color: var(--fg);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
@@ -96,12 +98,6 @@
 
   body {
     min-height: 100dvh;
-    background:
-      radial-gradient(60rem 36rem at 85% -10%, color-mix(in oklab, var(--accent) 16%, transparent), transparent 70%),
-      radial-gradient(40rem 30rem at -10% 20%, rgb(255 107 91 / 0.12), transparent 70%),
-      radial-gradient(circle, var(--line) 1px, transparent 1.4px) 0 0 / 22px 22px,
-      var(--bg);
-    background-attachment: scroll;
     font-size: 1.0625rem;
     line-height: 1.6;
     overflow-x: clip;
@@ -150,17 +146,15 @@
 
 @utility display {
   font-family: var(--font-display);
-  font-weight: 700;
-  font-stretch: 88%;
+  font-weight: 600;
   line-height: 0.95;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.02em;
 }
 
 @utility wordmark {
   font-family: var(--font-display);
-  font-weight: 800;
-  font-stretch: 100%;
-  letter-spacing: -0.05em;
+  font-weight: 700;
+  letter-spacing: -0.04em;
   line-height: 1;
 }
 
@@ -401,8 +395,7 @@
     outline-offset: 3px;
     color: var(--accent);
     font-family: var(--font-display);
-    font-weight: 800;
-    font-stretch: 85%;
+    font-weight: 700;
     font-size: 1.6rem;
     line-height: 1;
     rotate: -9deg;
@@ -455,10 +448,9 @@
      --------------------------------------------------------------------------- */
   .hero-title {
     font-family: var(--font-display);
-    font-weight: 700;
-    font-stretch: 88%;
-    font-size: clamp(4.75rem, 15vw, 14rem);
-    line-height: 0.84;
+    font-weight: 600;
+    font-size: clamp(4.5rem, 14vw, 13rem);
+    line-height: 0.86;
     letter-spacing: -0.035em;
   }
   .hero-title .line {
@@ -473,8 +465,9 @@
   }
   @keyframes hero-stretch {
     from {
-      font-stretch: 75%;
       opacity: 0;
+      transform: translateY(0.25em);
+      letter-spacing: 0.02em;
     }
   }
 
@@ -485,11 +478,10 @@
   }
   .footer-mark {
     font-family: var(--font-display);
-    font-weight: 800;
-    font-stretch: 100%;
-    letter-spacing: -0.06em;
+    font-weight: 700;
+    letter-spacing: -0.05em;
     line-height: 0.78;
-    font-size: 37cqi;
+    font-size: 39cqi;
     white-space: nowrap;
   }
 
@@ -595,8 +587,8 @@ html[data-theme-switching]::view-transition-new(root) {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, var(--bg) 0%, color-mix(in oklab, var(--bg) 88%, transparent) 45%, color-mix(in oklab, var(--bg) 55%, transparent) 100%),
-    linear-gradient(180deg, transparent 60%, var(--bg) 100%);
+    linear-gradient(90deg, color-mix(in oklab, var(--bg) 82%, transparent) 0%, color-mix(in oklab, var(--bg) 72%, transparent) 45%, color-mix(in oklab, var(--bg) 40%, transparent) 100%),
+    linear-gradient(180deg, transparent 70%, color-mix(in oklab, var(--bg) 90%, transparent) 100%);
 }
 @media (max-width: 64rem) {
   .hero-backdrop__veil {
@@ -607,4 +599,76 @@ html[data-theme-switching]::view-transition-new(root) {
   .hero-backdrop__row {
     animation: none;
   }
+}
+
+/* ---------------------------------------------------------------------------
+   Colour glow behind every page: four soft blobs drifting slowly.
+   --------------------------------------------------------------------------- */
+.page-glow {
+  position: fixed;
+  inset: 0;
+  z-index: -20;
+  overflow: hidden;
+  pointer-events: none;
+}
+.page-glow span {
+  position: absolute;
+  width: 42vmax;
+  height: 42vmax;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.6;
+  animation: glow-float 26s ease-in-out infinite alternate;
+}
+.page-glow span:nth-child(1) { background: #ff6b5b; top: -18vmax; left: -12vmax; }
+.page-glow span:nth-child(2) { background: #5cc8f2; top: -14vmax; right: -14vmax; animation-delay: -8s; }
+.page-glow span:nth-child(3) { background: #ffd447; bottom: -20vmax; left: 20vw; animation-delay: -15s; opacity: 0.35; }
+.page-glow span:nth-child(4) { background: #b6a4ff; bottom: -16vmax; right: -10vmax; animation-delay: -4s; }
+[data-theme='dark'] .page-glow span { opacity: 0.2; }
+@keyframes glow-float {
+  50% { transform: translate(6vw, 8vh) scale(1.1); }
+  100% { transform: translate(-5vw, 4vh) scale(0.95); }
+}
+
+/* Logo wheel turns slowly. */
+.wheel-spin { animation: wheel 18s linear infinite; }
+@keyframes wheel { to { rotate: 360deg; } }
+
+/* ---------------------------------------------------------------------------
+   Scroll-driven motion (CSS only, progressive enhancement)
+   --------------------------------------------------------------------------- */
+@supports (animation-timeline: view()) {
+  main li > article, main .raffle, main h2.display {
+    animation: reveal-up linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 70%;
+  }
+  .parallax img {
+    scale: 1.15;
+    animation: parallax linear both;
+    animation-timeline: view();
+  }
+  .site-header::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 3px;
+    background: linear-gradient(90deg, #ff6b5b, #ffd447, #59d88f, #5cc8f2, #b6a4ff);
+    transform-origin: left;
+    animation: progress linear both;
+    animation-timeline: scroll(root);
+  }
+}
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(48px) scale(0.98); }
+}
+@keyframes parallax {
+  from { translate: 0 -7%; }
+  to { translate: 0 7%; }
+}
+@keyframes progress {
+  from { transform: scaleX(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-glow span, .wheel-spin, main article, main .raffle, main h2.display, .parallax img { animation: none !important; }
 }

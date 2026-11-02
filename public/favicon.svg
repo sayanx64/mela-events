@@ -1,5 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <path fill="#3B2EF0" d="M8 12h48a4 4 0 0 1 4 4v10a6 6 0 0 0 0 12v10a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V38a6 6 0 0 0 0-12V16a4 4 0 0 1 4-4z"/>
-  <path fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-dasharray="1 6" d="M44 19v26"/>
-  <path fill="#fff" d="M14 41V25.5h4.2l.3 2.1c1-1.6 2.6-2.5 4.6-2.5 2 0 3.5.9 4.3 2.6 1.1-1.7 2.8-2.6 4.9-2.6 3.2 0 5 2.1 5 5.6V41h-4.6v-9.5c0-1.6-.7-2.4-2-2.4-1.5 0-2.4 1-2.4 2.8V41h-4.6v-9.5c0-1.6-.7-2.4-2-2.4-1.5 0-2.4 1-2.4 2.8V41z"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <filter id="r" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="7"/>
+      <feDisplacementMap in="SourceGraphic" scale="2.4"/>
+    </filter>
+  </defs>
+  <g filter="url(#r)" stroke="#17143a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M31 28 L17 58 M33 28 L47 58 M11 58.5 C 24 57.5, 40 59.5, 53 58"/>
+    <circle cx="32" cy="27" r="18" fill="#fff"/>
+    <path d="M32 27 L50 27 M32 27 L44.7 39.7 M32 27 L32 45 M32 27 L19.3 39.7 M32 27 L14 27 M32 27 L19.3 14.3 M32 27 L32 9 M32 27 L44.7 14.3" stroke-width="2"/>
+    <circle cx="50" cy="27" r="4.5" fill="#FF6B5B"/><circle cx="44.7" cy="39.7" r="4.5" fill="#FFD447"/>
+    <circle cx="32" cy="45" r="4.5" fill="#5CC8F2"/><circle cx="19.3" cy="39.7" r="4.5" fill="#59D88F"/>
+    <circle cx="14" cy="27" r="4.5" fill="#FF92C8"/><circle cx="19.3" cy="14.3" r="4.5" fill="#FFA03A"/>
+    <circle cx="32" cy="9" r="4.5" fill="#B6A4FF"/><circle cx="44.7" cy="14.3" r="4.5" fill="#E3C38F"/>
+  </g>
 </svg>

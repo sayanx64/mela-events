@@ -1,4 +1,4 @@
-import { CalendarPlus, Download, Trash2 } from 'lucide-react'
+import { CalendarPlus, Download, FileDown, Trash2 } from 'lucide-react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router'
@@ -7,6 +7,7 @@ import { TicketLandscape } from '../components/Ticket.jsx'
 import { useRegistrations } from '../hooks/useRegistrations.js'
 import { downloadCalendarFile, downloadFile } from '../lib/calendar.js'
 import { relativeStart } from '../lib/dates.js'
+import { downloadTicketPdf } from '../lib/pdf.js'
 import { getEvent, isPast } from '../lib/events.js'
 import { registrations as store, STORAGE_KEY } from '../lib/store.js'
 
@@ -149,6 +150,10 @@ export default function Tickets() {
                       <button type="button" onClick={() => downloadCalendarFile(event, registration)} className="btn btn-secondary btn-sm">
                         <CalendarPlus className="size-4" aria-hidden="true" />
                         Add to calendar
+                      </button>
+                      <button type="button" onClick={() => downloadTicketPdf(event, registration)} className="btn btn-secondary btn-sm">
+                        <FileDown className="size-4" aria-hidden="true" />
+                        Download PDF
                       </button>
                       <button
                         type="button"

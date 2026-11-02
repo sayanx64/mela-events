@@ -1,11 +1,13 @@
 import { Link } from 'react-router'
 import { CATEGORIES, CITIES } from '../data/categories.js'
+import { FerrisWheel } from './Logo.jsx'
 
 export default function Footer() {
   return (
     <footer className="mt-32 overflow-hidden bg-ink text-[#eeedf6] dark:bg-sunken">
       <div className="wrap grid gap-12 pt-16 pb-12 md:grid-cols-[1.3fr_1fr_1fr_1fr]">
         <div className="max-w-sm">
+          <FerrisWheel className="mb-6 size-24 text-[#eeedf6]" />
           <p className="text-[1.0625rem] leading-relaxed text-[#c9c6e4]">
             Gigs, talks, workshops, food walks and screenings across eight Indian cities. Find one, save a seat, show the
             ticket at the door.

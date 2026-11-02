@@ -187,7 +187,7 @@ export default function EventDetail() {
           <p className="max-w-[34rem] text-[1.1875rem] leading-relaxed lg:col-span-4">{event.summary}</p>
         </header>
 
-        <div className="img-frame mt-10 aspect-[16/10] overflow-hidden rounded-[8px] sm:aspect-[2/1] lg:aspect-[21/9]">
+        <div className="img-frame parallax mt-10 aspect-[16/10] overflow-hidden rounded-[8px] sm:aspect-[2/1] lg:aspect-[21/9]">
           <EventImage
             event={event}
             sizes="(min-width: 1500px) 1400px, 100vw"

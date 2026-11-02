@@ -10,6 +10,12 @@ export default function Layout() {
       <a href="#main" className="skip-link">
         Skip to content
       </a>
+      <div className="page-glow" aria-hidden="true">
+        <span />
+        <span />
+        <span />
+        <span />
+      </div>
       <Header />
       {/* Keyed by path: moving to another page cross-fades, but changing filters
           or search params on the same page updates in place without animating. */}

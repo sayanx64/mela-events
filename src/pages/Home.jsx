@@ -96,7 +96,7 @@ function Featured({ events, registrations }) {
 
       <div className="mt-10 grid gap-x-12 gap-y-12 lg:grid-cols-12">
         <article className="group relative lg:col-span-7">
-          <div className="img-frame relative aspect-[16/10] overflow-hidden rounded-[6px]">
+          <div className="img-frame parallax relative aspect-[16/10] overflow-hidden rounded-[6px]">
             <EventImage
               event={lead}
               sizes="(min-width: 1024px) 55vw, 92vw"
