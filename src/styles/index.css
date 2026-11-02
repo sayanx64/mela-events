@@ -1,0 +1,610 @@
+@import 'tailwindcss';
+
+/* Dark mode follows the data-theme attribute set in index.html, not the media query,
+   so the toggle can override the system setting. */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/* ---------------------------------------------------------------------------
+   Tokens
+   --------------------------------------------------------------------------- */
+@theme {
+  --font-display: 'Bricolage Grotesque Variable', ui-sans-serif, sans-serif;
+  --font-sans: 'Schibsted Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
+
+  /* Raffle-ticket colours, one per category. Ink text sits on all of them. */
+  --color-music: #ff6b5b;
+  --color-tech: #5cc8f2;
+  --color-art: #ffd447;
+  --color-food: #ffa03a;
+  --color-comedy: #ff92c8;
+  --color-workshops: #b6a4ff;
+  --color-sport: #59d88f;
+  --color-film: #e3c38f;
+  --color-ink: #17143a;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --breakpoint-xs: 30rem;
+}
+
+/* Semantic colours that change with the theme. */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-sunken: var(--sunken);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-soft: var(--accent-soft);
+  --color-danger: var(--danger);
+  --color-success: var(--success);
+}
+
+:root {
+  --bg: #f0f0ec;
+  --surface: #ffffff;
+  --sunken: #e6e6e1;
+  --fg: #17143a;
+  --muted: #5b5876;
+  --line: rgb(23 20 58 / 0.12);
+  --line-strong: rgb(23 20 58 / 0.28);
+  --accent: #3b2ef0;
+  --accent-fg: #ffffff;
+  --accent-soft: rgb(59 46 240 / 0.09);
+  --danger: #c4122f;
+  --success: #0a7a45;
+  --ticket-shadow: rgb(23 20 58 / 0.2);
+  --gutter: clamp(1.125rem, 4vw, 3rem);
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --bg: #100e26;
+  --surface: #1c1939;
+  --sunken: #0b0a1d;
+  --fg: #eeedf6;
+  --muted: #a9a6c6;
+  --line: rgb(238 237 246 / 0.12);
+  --line-strong: rgb(238 237 246 / 0.3);
+  --accent: #8e84ff;
+  --accent-fg: #100e26;
+  --accent-soft: rgb(142 132 255 / 0.14);
+  --danger: #ff8a80;
+  --success: #5ee0a0;
+  --ticket-shadow: rgb(0 0 0 / 0.5);
+  color-scheme: dark;
+}
+
+/* ---------------------------------------------------------------------------
+   Base
+   --------------------------------------------------------------------------- */
+@layer base {
+  html {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-size-adjust: 100%;
+    scroll-padding-top: 6rem;
+    hanging-punctuation: first;
+  }
+
+  body {
+    min-height: 100dvh;
+    background:
+      radial-gradient(60rem 36rem at 85% -10%, color-mix(in oklab, var(--accent) 16%, transparent), transparent 70%),
+      radial-gradient(40rem 30rem at -10% 20%, rgb(255 107 91 / 0.12), transparent 70%),
+      radial-gradient(circle, var(--line) 1px, transparent 1.4px) 0 0 / 22px 22px,
+      var(--bg);
+    background-attachment: scroll;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    overflow-x: clip;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+
+  p,
+  li {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-fg);
+  }
+
+  img {
+    color: transparent; /* hide alt text flashes while images load */
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Layout and type
+   --------------------------------------------------------------------------- */
+@utility wrap {
+  width: min(100% - 2 * var(--gutter), 92rem);
+  margin-inline: auto;
+}
+
+@utility display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-stretch: 88%;
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+}
+
+@utility wordmark {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-stretch: 100%;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@layer components {
+  .skip-link {
+    position: fixed;
+    left: 1rem;
+    top: 0.75rem;
+    z-index: 100;
+    translate: 0 -200%;
+    background: var(--accent);
+    color: var(--accent-fg);
+    padding: 0.75rem 1.25rem;
+    border-radius: 999px;
+    font-weight: 600;
+    transition: translate 0.2s var(--ease-out);
+  }
+  .skip-link:focus-visible {
+    translate: 0 0;
+  }
+
+  /* Header gains a hairline once the page scrolls (scroll-driven animation, CSS only). */
+  .site-header {
+    background: color-mix(in oklab, var(--bg) 85%, transparent);
+    backdrop-filter: blur(10px);
+  }
+  @supports (animation-timeline: scroll()) {
+    .site-header {
+      animation: header-edge linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 80px;
+    }
+  }
+  @keyframes header-edge {
+    to {
+      box-shadow: 0 1px 0 var(--line);
+    }
+  }
+
+  /* ----- Buttons ----- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 3rem;
+    padding: 0 1.4rem;
+    border-radius: 999px;
+    font-weight: 600;
+    line-height: 1.1;
+    white-space: nowrap;
+    transition:
+      background-color 0.2s,
+      color 0.2s,
+      border-color 0.2s,
+      transform 0.15s var(--ease-out);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn:active:not(:disabled) {
+    transform: translateY(1px) scale(0.99);
+  }
+  .btn:disabled,
+  .btn[aria-disabled='true'] {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--accent-fg);
+  }
+  .btn-primary:hover:not(:disabled) {
+    background: color-mix(in oklab, var(--accent) 86%, var(--fg));
+  }
+  .btn-secondary {
+    border: 1.5px solid var(--line-strong);
+    color: var(--fg);
+  }
+  .btn-secondary:hover:not(:disabled) {
+    border-color: var(--fg);
+  }
+  .btn-quiet {
+    color: var(--fg);
+    padding-inline: 0.9rem;
+  }
+  .btn-quiet:hover {
+    background: var(--accent-soft);
+  }
+  .btn-danger {
+    background: var(--danger);
+    color: var(--bg);
+  }
+  .btn-sm {
+    min-height: 2.5rem;
+    padding: 0 1rem;
+    font-size: 0.9375rem;
+  }
+
+  /* ----- Text links with a thick, offset underline ----- */
+  .link {
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 0.2em;
+    text-decoration-color: color-mix(in oklab, currentColor 40%, transparent);
+    transition: text-decoration-color 0.2s;
+  }
+  .link:hover {
+    text-decoration-color: currentColor;
+  }
+
+  /* ----- Form controls ----- */
+  .field-input {
+    width: 100%;
+    min-height: 3.25rem;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    border: 1.5px solid var(--line-strong);
+    background: var(--surface);
+    color: var(--fg);
+    font-size: 1.0625rem;
+    transition:
+      border-color 0.15s,
+      box-shadow 0.15s;
+  }
+  .field-input::placeholder {
+    color: color-mix(in oklab, var(--muted) 75%, transparent);
+  }
+  .field-input:hover {
+    border-color: color-mix(in oklab, var(--fg) 55%, transparent);
+  }
+  .field-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+  }
+  .field-input[aria-invalid='true'] {
+    border-color: var(--danger);
+  }
+  .field-input[aria-invalid='true']:focus {
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--danger) 18%, transparent);
+  }
+  select.field-input {
+    appearance: none;
+    padding-right: 2.75rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='%237a77a0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 5 4 4 4-4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+  }
+
+  /* ---------------------------------------------------------------------------
+     Tickets: the one bold element. Notches are cut with masks so the page
+     background shows through, and the perforation is a row of dots.
+     --------------------------------------------------------------------------- */
+  .ticket-shadow {
+    filter: drop-shadow(0 1px 1px rgb(23 20 58 / 0.08)) drop-shadow(0 18px 28px var(--ticket-shadow));
+  }
+
+  .ticket {
+    --notch: 13px;
+    position: relative;
+    display: grid;
+    background: var(--surface);
+    color: var(--fg);
+    border-radius: 18px;
+    overflow: hidden;
+  }
+
+  .ticket--portrait {
+    --stub: 9.75rem;
+    grid-template-rows: 1fr var(--stub);
+    mask:
+      radial-gradient(circle at 0 calc(100% - var(--stub)), #0000 var(--notch), #000 calc(var(--notch) + 0.5px)) left / 51% 100% no-repeat,
+      radial-gradient(circle at 100% calc(100% - var(--stub)), #0000 var(--notch), #000 calc(var(--notch) + 0.5px)) right / 51% 100% no-repeat;
+  }
+
+  .ticket--landscape {
+    --stub: 11rem;
+    grid-template-columns: 1fr var(--stub);
+    mask:
+      radial-gradient(circle at calc(100% - var(--stub)) 0, #0000 var(--notch), #000 calc(var(--notch) + 0.5px)) top / 100% 51% no-repeat,
+      radial-gradient(circle at calc(100% - var(--stub)) 100%, #0000 var(--notch), #000 calc(var(--notch) + 0.5px)) bottom / 100% 51% no-repeat;
+  }
+
+  @media (max-width: 40rem) {
+    .ticket--landscape {
+      --stub: 8.5rem;
+    }
+  }
+
+  .ticket__stub {
+    position: relative;
+    background: var(--cat, var(--accent));
+    color: var(--color-ink);
+  }
+
+  /* Perforation: dots along the tear line. */
+  .ticket--portrait .ticket__stub::before,
+  .ticket--landscape .ticket__stub::before {
+    content: '';
+    position: absolute;
+    background-image: radial-gradient(circle, var(--bg) 2.1px, transparent 2.6px);
+  }
+  .ticket--portrait .ticket__stub::before {
+    left: calc(var(--notch) + 4px);
+    right: calc(var(--notch) + 4px);
+    top: -4px;
+    height: 8px;
+    background-size: 11px 8px;
+    background-position: center;
+  }
+  .ticket--landscape .ticket__stub::before {
+    top: calc(var(--notch) + 4px);
+    bottom: calc(var(--notch) + 4px);
+    left: -4px;
+    width: 8px;
+    background-size: 8px 11px;
+    background-position: center;
+  }
+
+  /* Printed serial text on stubs. */
+  .ticket__serial {
+    font-family: var(--font-sans);
+    font-variant-numeric: tabular-nums slashed-zero;
+    letter-spacing: 0.06em;
+  }
+
+  /* "Confirmed" rubber stamp. */
+  .stamp {
+    display: inline-grid;
+    place-items: center;
+    padding: 0.35rem 0.9rem 0.45rem;
+    border: 3px solid currentColor;
+    border-radius: 10px;
+    outline: 1.5px solid currentColor;
+    outline-offset: 3px;
+    color: var(--accent);
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-stretch: 85%;
+    font-size: 1.6rem;
+    line-height: 1;
+    rotate: -9deg;
+    mix-blend-mode: multiply;
+    /* uneven ink */
+    mask-image: radial-gradient(circle at 30% 40%, #000 55%, rgb(0 0 0 / 0.78) 75%, #000 100%);
+  }
+  [data-theme='dark'] .stamp {
+    mix-blend-mode: normal;
+  }
+
+  /* ---------------------------------------------------------------------------
+     Raffle tickets (category tiles)
+     --------------------------------------------------------------------------- */
+  .raffle {
+    --r: 11px;
+    position: relative;
+    isolation: isolate;
+    background: var(--cat);
+    color: var(--color-ink);
+    border-radius: 6px;
+    mask:
+      radial-gradient(circle at 0 50%, #0000 var(--r), #000 calc(var(--r) + 0.5px)) left / 51% 100% no-repeat,
+      radial-gradient(circle at 100% 50%, #0000 var(--r), #000 calc(var(--r) + 0.5px)) right / 51% 100% no-repeat;
+  }
+  .raffle::before {
+    content: '';
+    position: absolute;
+    inset: 9px 22px;
+    border: 1.5px dashed rgb(23 20 58 / 0.32);
+    border-radius: 4px;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* Category swatch dot used in lists and chips. */
+  .swatch {
+    display: inline-block;
+    width: 0.7em;
+    height: 0.7em;
+    border-radius: 2px;
+    background: var(--cat);
+    flex: none;
+    box-shadow: inset 0 0 0 1px rgb(23 20 58 / 0.15);
+  }
+
+  /* ---------------------------------------------------------------------------
+     Hero headline: one orchestrated entrance. Lines rise out of a mask while the
+     letters widen from condensed to their resting width.
+     --------------------------------------------------------------------------- */
+  .hero-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-stretch: 88%;
+    font-size: clamp(4.75rem, 15vw, 14rem);
+    line-height: 0.84;
+    letter-spacing: -0.035em;
+  }
+  .hero-title .line {
+    display: block;
+  }
+  .hero-title .line > span {
+    display: inline-block;
+    animation: hero-stretch 1.2s var(--ease-out) both;
+  }
+  .hero-title .line:nth-child(2) > span {
+    animation-delay: 0.08s;
+  }
+  @keyframes hero-stretch {
+    from {
+      font-stretch: 75%;
+      opacity: 0;
+    }
+  }
+
+  /* Giant footer wordmark, sized in container units so it always spans the
+     content width exactly, whatever the screen size. */
+  .footer-mark-box {
+    container-type: inline-size;
+  }
+  .footer-mark {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-stretch: 100%;
+    letter-spacing: -0.06em;
+    line-height: 0.78;
+    font-size: 37cqi;
+    white-space: nowrap;
+  }
+
+  /* Horizontal scroll rows (chips on mobile) without a visible scrollbar. */
+  .scroll-row {
+    overflow-x: auto;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+  .scroll-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .confirm-dialog {
+    border: 0;
+    box-shadow: 0 30px 80px rgb(16 14 38 / 0.35);
+  }
+  .confirm-dialog::backdrop {
+    background: rgb(16 14 38 / 0.5);
+  }
+
+  /* Image placeholder tint while loading */
+  .img-frame {
+    background: var(--sunken);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   View transitions (route changes and the theme switch)
+   --------------------------------------------------------------------------- */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.28s;
+}
+
+/* Theme switch: the new theme grows out of the toggle button. */
+html[data-theme-switching]::view-transition-old(root) {
+  animation: none;
+}
+html[data-theme-switching]::view-transition-new(root) {
+  animation: theme-reveal 0.55s var(--ease-in-out);
+}
+@keyframes theme-reveal {
+  from {
+    clip-path: circle(0 at var(--reveal-x, 100%) var(--reveal-y, 0));
+  }
+  to {
+    clip-path: circle(var(--reveal-r, 150vmax) at var(--reveal-x, 100%) var(--reveal-y, 0));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Hero backdrop: a tilted wall of event photos drifting slowly sideways.
+   --------------------------------------------------------------------------- */
+.hero-backdrop__tilt {
+  position: absolute;
+  inset: -20% -10%;
+  display: grid;
+  align-content: center;
+  gap: 1rem;
+  rotate: -7deg;
+}
+.hero-backdrop__row {
+  display: flex;
+  gap: 1rem;
+  width: max-content;
+  animation: drift 90s linear infinite;
+}
+.hero-backdrop__row.is-reverse {
+  animation-direction: reverse;
+  animation-duration: 110s;
+}
+.hero-backdrop__row img {
+  width: clamp(14rem, 22vw, 20rem);
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: 10px;
+  filter: saturate(1.1);
+}
+@keyframes drift {
+  to {
+    transform: translateX(-50%);
+  }
+}
+/* Fade the photos into the page so the headline and form stay readable. */
+.hero-backdrop__veil {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, var(--bg) 0%, color-mix(in oklab, var(--bg) 88%, transparent) 45%, color-mix(in oklab, var(--bg) 55%, transparent) 100%),
+    linear-gradient(180deg, transparent 60%, var(--bg) 100%);
+}
+@media (max-width: 64rem) {
+  .hero-backdrop__veil {
+    background: color-mix(in oklab, var(--bg) 86%, transparent);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-backdrop__row {
+    animation: none;
+  }
+}
