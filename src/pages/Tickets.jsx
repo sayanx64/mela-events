@@ -111,7 +111,7 @@ export default function Tickets() {
 
       {list.length === 0 ? (
         <div className="mt-12 rounded-[20px] border-2 border-dashed border-line-strong px-6 py-16 text-center sm:px-12">
-          <h2 className="display text-[2.5rem] leading-none">
+          <h2 key={tab} className="display text-[2.5rem] leading-none">
             {tab === 'upcoming' ? 'No tickets yet.' : 'Nothing here yet.'}
           </h2>
           <p className="mx-auto mt-4 max-w-[28rem] text-[1.0625rem] text-muted">

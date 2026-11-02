@@ -62,7 +62,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="footer-mark-box wrap mt-6" aria-hidden="true">
-        <p className="footer-mark -mb-[0.05em] -translate-x-[0.036em] select-none text-[#eeedf6]">mela</p>
+        <p className="footer-mark -mb-[0.05em] select-none text-[#eeedf6]">mela</p>
       </div>
     </footer>
   )

@@ -132,7 +132,7 @@ export default function Events() {
     <>
       <title>{filters.city ? `Events in ${filters.city} | mela` : 'All events | mela'}</title>
       <section className="wrap pt-8 lg:pt-14">
-        <h1 className="display text-[clamp(3.75rem,10vw,9rem)] leading-[0.84]">
+        <h1 key={filters.city} className="display text-[clamp(3.75rem,10vw,9rem)] leading-[0.84]">
           {filters.city ? `What’s on in ${filters.city}` : 'What’s on'}
         </h1>
 

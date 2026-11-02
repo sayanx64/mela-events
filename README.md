@@ -21,7 +21,7 @@ A responsive event management website built for **K Explore, Web Designing**. Br
 - Animations: draggable ticket stack, page transitions, a "Confirmed" stamp on registration, a drifting photo background
 - Local Storage registration management: My tickets page with QR codes, cancel with undo, add to calendar (.ics), download ticket as PDF, export as JSON and remove all
 - Hand-drawn sketch background (balloons, diya, kite, chai, tickets and more) that inks itself in and drifts and spins as you scroll
-- Scroll-driven reveals, image parallax and a reading progress bar (CSS `animation-timeline`)
+- Premium motion: Lenis smooth scrolling, GSAP SplitText headline reveals, clip-path photo reveals, parallax covers and a scroll progress bar
 
 ## Tech stack
 
@@ -31,7 +31,7 @@ A responsive event management website built for **K Explore, Web Designing**. Br
 | Build | Vite 8 |
 | Routing | React Router 8 |
 | Styling | Tailwind CSS 4 plus custom CSS (masks, container queries, scroll-driven animation) |
-| Motion | Motion for React, CSS animations and the View Transitions API |
+| Motion | GSAP (SplitText), Lenis smooth scroll, Motion for React, CSS scroll-driven animations and the View Transitions API |
 | Data | Local Storage, through a small store module in `src/lib/store.js` |
 | Tests | Vitest (43 unit tests) |
 | Hosting | Vercel |
@@ -67,4 +67,4 @@ npm run build    # production build in dist/
 
 ## Credits
 
-Photos are from [Unsplash](https://unsplash.com/license). Fonts are Clash Display and Satoshi from Fontshare (ITF Free Font License). The Ferris wheel logo is a hand-drawn style SVG made for this project. The events, venues and hosts are made up for this project.
+Photos are from [Unsplash](https://unsplash.com/license). Fonts are Zodiak and Switzer by Indian Type Foundry (Fontshare, ITF Free Font License), self-hosted. The Ferris wheel logo is a hand-drawn style SVG made for this project. The events, venues and hosts are made up for this project.

@@ -1,6 +1,7 @@
 import { encode } from 'uqr'
 import { getCategory } from '../data/categories.js'
 import { formatLongDate, formatTime, isMultiDay } from './dates.js'
+import { downloadFile } from './calendar.js'
 import { imageUrl } from './events.js'
 
 /** Loads an event photo and converts it to JPEG so jsPDF can embed it. */
@@ -100,5 +101,7 @@ export async function downloadTicketPdf(event, registration) {
   pdf.setTextColor('#5b5876')
   pdf.text('Show this ticket at the entrance. Saved from mela on this device.', 10, 140)
 
-  pdf.save(`${event.slug}-${registration.id}.pdf`)
+  // Save as a real application/pdf file with an explicit .pdf name (jsPDF's save() can
+  // open a nameless blob tab in some browsers).
+  downloadFile(`mela-ticket-${registration.id}.pdf`, pdf.output('arraybuffer'), 'application/pdf')
 }

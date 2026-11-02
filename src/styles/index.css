@@ -8,8 +8,8 @@
    Tokens
    --------------------------------------------------------------------------- */
 @theme {
-  --font-display: 'Clash Display', ui-sans-serif, sans-serif;
-  --font-sans: 'Satoshi', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Zodiak', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Switzer', ui-sans-serif, system-ui, sans-serif;
 
   /* Raffle-ticket colours, one per category. Ink text sits on all of them. */
   --color-music: #ff6b5b;
@@ -146,15 +146,15 @@
 
 @utility display {
   font-family: var(--font-display);
-  font-weight: 600;
-  line-height: 0.95;
-  letter-spacing: -0.02em;
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.025em;
 }
 
 @utility wordmark {
   font-family: var(--font-display);
-  font-weight: 700;
-  letter-spacing: -0.04em;
+  font-weight: 800;
+  letter-spacing: -0.035em;
   line-height: 1;
 }
 
@@ -448,27 +448,13 @@
      --------------------------------------------------------------------------- */
   .hero-title {
     font-family: var(--font-display);
-    font-weight: 600;
-    font-size: clamp(4.5rem, 14vw, 13rem);
-    line-height: 0.86;
-    letter-spacing: -0.035em;
+    font-weight: 700;
+    font-size: clamp(4.25rem, 13vw, 12.5rem);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
   }
   .hero-title .line {
     display: block;
-  }
-  .hero-title .line > span {
-    display: inline-block;
-    animation: hero-stretch 1.2s var(--ease-out) both;
-  }
-  .hero-title .line:nth-child(2) > span {
-    animation-delay: 0.08s;
-  }
-  @keyframes hero-stretch {
-    from {
-      opacity: 0;
-      transform: translateY(0.25em);
-      letter-spacing: 0.02em;
-    }
   }
 
   /* Giant footer wordmark, sized in container units so it always spans the
@@ -481,7 +467,7 @@
     font-weight: 700;
     letter-spacing: -0.05em;
     line-height: 0.78;
-    font-size: 39cqi;
+    font-size: 42.4cqi;
     white-space: nowrap;
   }
 
@@ -587,7 +573,7 @@ html[data-theme-switching]::view-transition-new(root) {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, color-mix(in oklab, var(--bg) 82%, transparent) 0%, color-mix(in oklab, var(--bg) 72%, transparent) 45%, color-mix(in oklab, var(--bg) 40%, transparent) 100%),
+    linear-gradient(90deg, color-mix(in oklab, var(--bg) 94%, transparent) 0%, color-mix(in oklab, var(--bg) 86%, transparent) 42%, color-mix(in oklab, var(--bg) 45%, transparent) 100%),
     linear-gradient(180deg, transparent 70%, color-mix(in oklab, var(--bg) 90%, transparent) 100%);
 }
 @media (max-width: 64rem) {
@@ -615,7 +601,7 @@ html[data-theme-switching]::view-transition-new(root) {
 }
 .doodle {
   position: absolute;
-  opacity: 0.34;
+  opacity: 0.26;
 }
 [data-theme='dark'] .doodle {
   opacity: 0.28;
@@ -674,11 +660,6 @@ html[data-theme-switching]::view-transition-new(root) {
    Scroll-driven motion (CSS only, progressive enhancement)
    --------------------------------------------------------------------------- */
 @supports (animation-timeline: view()) {
-  main li > article, main .raffle, main h2.display {
-    animation: reveal-up linear both;
-    animation-timeline: view();
-    animation-range: entry 0% entry 70%;
-  }
   .parallax img {
     scale: 1.15;
     animation: parallax linear both;
@@ -695,9 +676,6 @@ html[data-theme-switching]::view-transition-new(root) {
     animation-timeline: scroll(root);
   }
 }
-@keyframes reveal-up {
-  from { opacity: 0; transform: translateY(48px) scale(0.98); }
-}
 @keyframes parallax {
   from { translate: 0 -7%; }
   to { translate: 0 7%; }
@@ -706,5 +684,11 @@ html[data-theme-switching]::view-transition-new(root) {
   from { transform: scaleX(0); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .wheel-spin, main article, main .raffle, main h2.display, .parallax img { animation: none !important; }
+  .wheel-spin, .parallax img { animation: none !important; }
+}
+
+/* SplitText line masks: room for serif ascenders and descenders so nothing gets clipped. */
+.split-line-mask {
+  padding-block: 0.08em 0.2em;
+  margin-block: -0.08em -0.2em;
 }
