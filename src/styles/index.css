@@ -692,3 +692,13 @@ html[data-theme-switching]::view-transition-new(root) {
   padding-block: 0.08em 0.2em;
   margin-block: -0.08em -0.2em;
 }
+
+/* The photo wall fades in once it has been mounted after page load. */
+.hero-backdrop__tilt {
+  animation: backdrop-in 1.2s ease both;
+}
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+}
