@@ -20,6 +20,7 @@ A responsive event management website built for **K Explore, Web Designing**. Br
 - Live countdown timers on the hero tickets and on every event page
 - Animations: draggable ticket stack, page transitions, a "Confirmed" stamp on registration, a drifting photo background
 - Local Storage registration management: My tickets page with QR codes, cancel with undo, add to calendar (.ics), download ticket as PDF, export as JSON and remove all
+- Hand-drawn sketch background (balloons, diya, kite, chai, tickets and more) that inks itself in and drifts and spins as you scroll
 - Scroll-driven reveals, image parallax and a reading progress bar (CSS `animation-timeline`)
 
 ## Tech stack

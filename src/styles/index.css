@@ -602,32 +602,68 @@ html[data-theme-switching]::view-transition-new(root) {
 }
 
 /* ---------------------------------------------------------------------------
-   Colour glow behind every page: four soft blobs drifting slowly.
+   Hand-drawn sketches behind every page. They ink themselves in on load and
+   drift and turn with the scroll.
    --------------------------------------------------------------------------- */
-.page-glow {
+.doodles {
   position: fixed;
   inset: 0;
   z-index: -20;
   overflow: hidden;
   pointer-events: none;
+  color: var(--fg);
 }
-.page-glow span {
+.doodle {
   position: absolute;
-  width: 42vmax;
-  height: 42vmax;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.6;
-  animation: glow-float 26s ease-in-out infinite alternate;
+  opacity: 0.34;
 }
-.page-glow span:nth-child(1) { background: #ff6b5b; top: -18vmax; left: -12vmax; }
-.page-glow span:nth-child(2) { background: #5cc8f2; top: -14vmax; right: -14vmax; animation-delay: -8s; }
-.page-glow span:nth-child(3) { background: #ffd447; bottom: -20vmax; left: 20vw; animation-delay: -15s; opacity: 0.35; }
-.page-glow span:nth-child(4) { background: #b6a4ff; bottom: -16vmax; right: -10vmax; animation-delay: -4s; }
-[data-theme='dark'] .page-glow span { opacity: 0.2; }
-@keyframes glow-float {
-  50% { transform: translate(6vw, 8vh) scale(1.1); }
-  100% { transform: translate(-5vw, 4vh) scale(0.95); }
+[data-theme='dark'] .doodle {
+  opacity: 0.28;
+}
+.doodle svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.doodle path,
+.doodle circle {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: ink 2.2s var(--ease-out) var(--delay) forwards;
+}
+.doodle .tint {
+  fill: var(--tint);
+  fill-opacity: 0;
+  animation:
+    ink 2.2s var(--ease-out) var(--delay) forwards,
+    tint 1s ease calc(var(--delay) + 1.2s) forwards;
+}
+@keyframes ink {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes tint {
+  to { fill-opacity: 0.6; }
+}
+@supports (animation-timeline: scroll()) {
+  .doodle {
+    animation: doodle-scroll linear both;
+    animation-timeline: scroll(root);
+  }
+}
+@keyframes doodle-scroll {
+  to {
+    translate: 0 var(--drift);
+    rotate: var(--spin);
+  }
+}
+@media (max-width: 40rem) {
+  .doodle { opacity: 0.22; scale: 0.7; }
+  .doodle:nth-of-type(n + 11) { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .doodle, .doodle path, .doodle circle { animation: none !important; stroke-dashoffset: 0; }
+  .doodle .tint { fill-opacity: 0.6; }
 }
 
 /* Logo wheel turns slowly. */
@@ -670,5 +706,5 @@ html[data-theme-switching]::view-transition-new(root) {
   from { transform: scaleX(0); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .page-glow span, .wheel-spin, main article, main .raffle, main h2.display, .parallax img { animation: none !important; }
+  .wheel-spin, main article, main .raffle, main h2.display, .parallax img { animation: none !important; }
 }
