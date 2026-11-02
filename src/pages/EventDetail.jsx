@@ -49,8 +49,8 @@ function BookingTicket({ event, registrations }) {
   return (
     <div className="ticket-shadow">
       <div className="ticket ticket--portrait [--stub:14.5rem]">
-        <dl className="grid content-start gap-5 p-6 text-[0.9375rem]">
-          <div>
+        <dl className="grid content-start grid-cols-[auto_1fr] gap-x-10 gap-y-5 p-6 text-[0.9375rem]">
+          <div className="col-span-2">
             <dt className="text-muted">When</dt>
             <dd className="mt-0.5 font-semibold">
               {multiDay ? (
@@ -68,7 +68,7 @@ function BookingTicket({ event, registrations }) {
               )}
             </dd>
           </div>
-          <div>
+          <div className="col-span-2">
             <dt className="text-muted">Where</dt>
             <dd className="mt-0.5">
               <span className="font-semibold">{event.venue}</span>
@@ -76,15 +76,14 @@ function BookingTicket({ event, registrations }) {
               {event.address}
             </dd>
           </div>
-          <div className="flex gap-10">
-            <div>
+          <div>
               <dt className="text-muted">Price</dt>
               <dd className="mt-0.5 font-semibold">
                 {formatPrice(event.price)}
                 {event.price > 0 && <span className="font-normal text-muted"> a seat</span>}
               </dd>
-            </div>
-            <div className="flex-1">
+          </div>
+          <div>
               <dt className="text-muted">Seats</dt>
               <dd className="mt-0.5">
                 <span className="font-semibold">{left.toLocaleString('en-IN')}</span> of{' '}
@@ -97,7 +96,6 @@ function BookingTicket({ event, registrations }) {
                   <span className="block h-full rounded-full bg-fg" style={{ width: `${(taken / event.capacity) * 100}%` }} />
                 </span>
               </dd>
-            </div>
           </div>
         </dl>
 
