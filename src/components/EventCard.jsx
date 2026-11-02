@@ -1,7 +1,7 @@
 import { Link } from 'react-router'
 import { getCategory } from '../data/categories.js'
-import { eventStatus, formatPrice } from '../lib/events.js'
-import { CategoryTag, coverTransitionName, DateBlock, EventImage, SeatsNote } from './EventBits.jsx'
+import { coverTransitionName, eventStatus, formatPrice } from '../lib/events.js'
+import { CategoryTag, DateBlock, EventImage, SeatsNote } from './EventBits.jsx'
 
 /**
  * Poster-style event card: photo, date block, title, venue, short description, price.

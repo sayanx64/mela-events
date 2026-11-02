@@ -44,7 +44,7 @@ function SearchBox({ value, onSearch }) {
         type="search"
         value={text}
         onChange={(e) => setText(e.target.value)}
-        placeholder="Search by name, venue, city or what it’s about"
+        placeholder="Search events, venues, cities"
         className="field-input h-14 rounded-full pr-12 pl-12 [&::-webkit-search-cancel-button]:hidden"
         autoComplete="off"
         enterKeyHint="search"
@@ -67,10 +67,10 @@ function SearchBox({ value, onSearch }) {
   )
 }
 
-function SelectFilter({ label, value, onChange, options }) {
+function SelectFilter({ label, value, onChange, options, wide = false }) {
   const id = useId()
   return (
-    <div className="min-w-0 flex-1 sm:flex-none">
+    <div className={`min-w-0 sm:flex-none ${wide ? 'col-span-2' : ''}`}>
       <label htmlFor={id} className="sr-only">
         {label}
       </label>
@@ -140,7 +140,7 @@ export default function Events() {
           <div className="flex-1">
             <SearchBox value={filters.q} onSearch={onSearch} />
           </div>
-          <div className="flex flex-wrap gap-3">
+          <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap">
             <SelectFilter
               label="City"
               value={filters.city}
@@ -155,6 +155,7 @@ export default function Events() {
             />
             <SelectFilter
               label="Sort by"
+              wide
               value={filters.sort}
               onChange={(sort) => update({ sort })}
               options={SORT_OPTIONS.map((o) => ({ value: o.id, label: o.label }))}

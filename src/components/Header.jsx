@@ -39,18 +39,18 @@ function TicketCount() {
 }
 
 const navClass = ({ isActive }) =>
-  `inline-flex min-h-11 items-center gap-2 rounded-full px-3.5 font-semibold transition-colors sm:px-4 ${
+  `inline-flex min-h-11 items-center gap-1.5 rounded-full px-3 font-semibold sm:gap-2 transition-colors sm:px-4 ${
     isActive ? 'bg-fg text-bg' : 'hover:bg-accent-soft'
   }`
 
 export default function Header() {
   return (
     <header className="site-header sticky top-0 z-40">
-      <div className="wrap flex h-[4.5rem] items-center justify-between gap-4">
+      <div className="wrap flex h-[4.5rem] items-center justify-between gap-2">
         <Link to="/" className="rounded-md" aria-label="mela home">
           <Logo />
         </Link>
-        <nav aria-label="Main" className="flex items-center gap-1 text-[0.9375rem] sm:gap-2 sm:text-base">
+        <nav aria-label="Main" className="flex items-center gap-0.5 text-[0.9375rem] sm:gap-2 sm:text-base">
           <NavLink to="/events" className={navClass}>
             Events
           </NavLink>

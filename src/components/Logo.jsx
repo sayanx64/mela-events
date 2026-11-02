@@ -45,9 +45,9 @@ export function FerrisWheel({ className = '', spin = true }) {
 
 export default function Logo({ className = '' }) {
   return (
-    <span className={`group inline-flex items-center gap-2 ${className}`}>
-      <FerrisWheel className="size-10 transition-transform duration-500 group-hover:rotate-12" />
-      <span className="wordmark text-[1.75rem] sm:text-[1.9rem]">mela</span>
+    <span className={`group inline-flex items-center gap-1.5 sm:gap-2 ${className}`}>
+      <FerrisWheel className="size-8 transition-transform duration-500 group-hover:rotate-12 sm:size-10" />
+      <span className="wordmark text-[1.5rem] sm:text-[1.9rem]">mela</span>
     </span>
   )
 }

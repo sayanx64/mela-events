@@ -436,7 +436,14 @@ export default function Register() {
                 </fieldset>
 
                 <div className="flex flex-wrap items-center gap-x-6 gap-y-4 border-t border-line pt-7">
-                  <button type="submit" className="btn btn-primary h-14 px-8 text-[1.0625rem]" disabled={status === 'saving'}>
+                  <button
+                    type="submit"
+                    className="btn btn-primary h-14 px-8 text-[1.0625rem]"
+                    disabled={status === 'saving'}
+                    // Keep focus in the field on mousedown: blurring it would show its error,
+                    // shift the layout, and make the click miss the button.
+                    onMouseDown={(e) => e.preventDefault()}
+                  >
                     {status === 'saving' ? (
                       <>
                         <LoaderCircle className="size-5 animate-spin" aria-hidden="true" />
@@ -483,7 +490,7 @@ export default function Register() {
                 )}
               </div>
             ) : (
-              <div className="mx-auto grid aspect-[3/4.4] w-full max-w-[23rem] place-items-center rounded-[18px] border-2 border-dashed border-line-strong p-8 text-center text-muted lg:mr-0 lg:ml-auto">
+              <div className="mx-auto hidden aspect-[3/4.4] w-full max-w-[23rem] place-items-center lg:grid rounded-[18px] border-2 border-dashed border-line-strong p-8 text-center text-muted lg:mr-0 lg:ml-auto">
                 <p>Choose an event and your ticket will appear here.</p>
               </div>
             )}

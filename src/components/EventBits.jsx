@@ -28,8 +28,6 @@ export function EventImage({ event, sizes = '100vw', priority = false, transitio
   )
 }
 
-export const coverTransitionName = (slug) => `cover-${slug}`
-
 /** Coloured category label, styled like a strip torn off a raffle roll. */
 export function CategoryTag({ id, className = '' }) {
   const category = getCategory(id)

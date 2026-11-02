@@ -90,14 +90,14 @@ export default function TicketStack({ events }) {
       </div>
 
       <div className="mt-12 flex items-center gap-3">
-        <button type="button" onClick={prev} className="btn btn-secondary size-11 min-h-0 p-0" aria-label="Previous event">
+        <button type="button" onClick={prev} className="btn btn-secondary size-11 min-h-0 bg-surface p-0" aria-label="Previous event">
           <ArrowLeft className="size-5" aria-hidden="true" />
         </button>
-        <p className="tabular min-w-[4.5rem] text-center text-[0.9375rem] text-muted" aria-live="polite">
+        <p className="tabular min-w-[4.5rem] rounded-full bg-surface/80 py-1 text-center text-[0.9375rem] text-muted" aria-live="polite">
           <span className="sr-only">Showing {top.title}, </span>
           {position} of {events.length}
         </p>
-        <button type="button" onClick={next} className="btn btn-secondary size-11 min-h-0 p-0" aria-label="Next event">
+        <button type="button" onClick={next} className="btn btn-secondary size-11 min-h-0 bg-surface p-0" aria-label="Next event">
           <ArrowRight className="size-5" aria-hidden="true" />
         </button>
       </div>

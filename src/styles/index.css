@@ -601,7 +601,7 @@ html[data-theme-switching]::view-transition-new(root) {
 }
 .doodle {
   position: absolute;
-  opacity: 0.26;
+  opacity: 0.2;
 }
 [data-theme='dark'] .doodle {
   opacity: 0.28;

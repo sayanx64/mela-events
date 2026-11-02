@@ -42,6 +42,9 @@ export function formatPrice(price) {
   return price === 0 ? 'Free' : rupees.format(price)
 }
 
+/** Shared name for the photo that morphs from a card into the event page cover. */
+export const coverTransitionName = (slug) => `cover-${slug}`
+
 export function imageUrl(event, size = 'sm') {
   return `/images/events/${event.slug}-${size}.webp`
 }

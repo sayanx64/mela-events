@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mela-events-livid.vercel.app/sitemap.xml

@@ -8,7 +8,8 @@
       name="description"
       content="Gigs, talks, workshops, food walks and screenings across eight Indian cities. Browse what's on and save your seat in under a minute."
     />
-    <link rel="preload" href="/fonts/7BCVT6EXVT32KF7LTFPU7KBYLR463OET.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/VGG36BIEB6ODAX4ZN7UV43FK742PFGDV.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/6IN5WOLRCYP4G4MOCOHOMXNON6Q7MDAR.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="theme-color" content="#F0F0EC" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#100E26" media="(prefers-color-scheme: dark)" />
@@ -35,8 +36,15 @@
                 : 'light'
           document.documentElement.dataset.theme = theme
         } catch (e) {}
+        document.documentElement.classList.add('js')
       })()
     </script>
+    <!-- The plain-HTML copy of the content is only for visitors without JavaScript. -->
+    <style>
+      .js .static-fallback {
+        display: none;
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>

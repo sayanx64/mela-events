@@ -2,7 +2,7 @@ import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router'
 import EventCard from '../components/EventCard.jsx'
-import { CategoryTag, coverTransitionName, EventImage, SeatsNote } from '../components/EventBits.jsx'
+import { CategoryTag, EventImage, SeatsNote } from '../components/EventBits.jsx'
 import HeroBackdrop from '../components/HeroBackdrop.jsx'
 import SearchForm from '../components/SearchForm.jsx'
 import TicketStack from '../components/TicketStack.jsx'
@@ -10,7 +10,7 @@ import { CATEGORIES, CITIES } from '../data/categories.js'
 import { EVENTS } from '../data/events.js'
 import { useRegistrations } from '../hooks/useRegistrations.js'
 import { formatEventWhen, relativeStart } from '../lib/dates.js'
-import { countByCategory, eventStatus, filterEvents, formatPrice, getEvent, isUpcoming } from '../lib/events.js'
+import { countByCategory, coverTransitionName, eventStatus, filterEvents, formatPrice, getEvent, isUpcoming } from '../lib/events.js'
 
 function Hero({ upcoming, registrations }) {
   const nextUp = upcoming.slice(0, 5)
@@ -20,7 +20,7 @@ function Hero({ upcoming, registrations }) {
     .sort((a, b) => Date.parse(a.event.start) - Date.parse(b.event.start))[0]
 
   return (
-    <div className="relative isolate">
+    <div className="relative isolate overflow-x-clip">
     <HeroBackdrop />
     <section className="wrap grid items-start gap-y-16 pt-6 pb-8 lg:grid-cols-12 lg:pt-12 lg:pb-16">
       <div className="relative z-10 lg:col-span-7">

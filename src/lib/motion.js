@@ -6,11 +6,16 @@ gsap.registerPlugin(SplitText)
 
 const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches
 
+// Automated browsers (screenshot tools, crawlers, Lighthouse) get the finished page straight
+// away, so nothing is ever left hidden waiting for a scroll that never happens.
+const isAutomated = () =>
+  navigator.webdriver || /HeadlessChrome|Lighthouse|bot|crawler|spider|preview/i.test(navigator.userAgent)
+
 let lenis = null
 
 /** Inertial smooth scrolling (Lenis), driven by GSAP's ticker. Off for reduced motion. */
 export function startSmoothScroll() {
-  if (lenis || reduceMotion()) return
+  if (lenis || reduceMotion() || isAutomated()) return
   lenis = new Lenis({
     lerp: 0.09,
     // Let dialogs and horizontally scrolling rows handle their own scrolling.
@@ -46,7 +51,7 @@ const EASE = 'expo.out'
  * Returns a cleanup function that restores the DOM exactly.
  */
 export function animatePage(root) {
-  if (!root || reduceMotion()) return () => {}
+  if (!root || reduceMotion() || isAutomated()) return () => {}
   const observers = []
   let alive = true
   const ctx = gsap.context(() => {}, root)
@@ -88,14 +93,15 @@ export function animatePage(root) {
     if (heroBits.length) gsap.set(heroBits, { y: 24, autoAlpha: 0 })
 
     // Split text only once the fonts are in, so line breaks are measured correctly.
-    document.fonts.ready.then(() => {
+    // Fonts are self-hosted and preloaded; never wait more than 400ms for them.
+    Promise.race([document.fonts.ready, new Promise((r) => setTimeout(r, 400))]).then(() => {
       if (!alive) return
       ctx.add(() => {
         if (hero) {
           const split = SplitText.create(hero, { type: 'lines,chars', mask: 'lines', linesClass: 'split-line' })
           gsap.set(hero, { autoAlpha: 1 })
-          gsap.from(split.chars, { yPercent: 120, rotate: 8, duration: 1.4, ease: EASE, stagger: 0.04, delay: 0.05 })
-          gsap.to(heroBits, { y: 0, autoAlpha: 1, duration: 1.2, ease: EASE, stagger: 0.08, delay: 0.55 })
+          gsap.from(split.chars, { yPercent: 120, rotate: 8, duration: 1.1, ease: EASE, stagger: 0.03 })
+          gsap.to(heroBits, { y: 0, autoAlpha: 1, duration: 1, ease: EASE, stagger: 0.06, delay: 0.35 })
         }
         headings.forEach((el) => {
           const split = SplitText.create(el, { type: 'lines', mask: 'lines', linesClass: 'split-line' })

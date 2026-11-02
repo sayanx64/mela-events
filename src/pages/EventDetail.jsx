@@ -3,11 +3,11 @@ import { useState } from 'react'
 import { Link, useParams } from 'react-router'
 import Countdown from '../components/Countdown.jsx'
 import EventCard from '../components/EventCard.jsx'
-import { CategoryTag, coverTransitionName, EventImage } from '../components/EventBits.jsx'
+import { CategoryTag, EventImage } from '../components/EventBits.jsx'
 import { getCategory } from '../data/categories.js'
 import { useRegistrations } from '../hooks/useRegistrations.js'
 import { formatLongDate, formatTime, isMultiDay } from '../lib/dates.js'
-import { eventStatus, formatPrice, getEvent, mapsUrl, relatedEvents, seatsLeft } from '../lib/events.js'
+import { coverTransitionName, eventStatus, formatPrice, getEvent, mapsUrl, relatedEvents, seatsLeft } from '../lib/events.js'
 import NotFound from './NotFound.jsx'
 
 function ShareButton({ event }) {

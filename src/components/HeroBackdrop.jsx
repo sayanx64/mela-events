@@ -11,7 +11,7 @@ export default function HeroBackdrop() {
         {rows.map((row, r) => (
           <div key={r} className={`hero-backdrop__row ${r % 2 ? 'is-reverse' : ''}`}>
             {[...row, ...row].map((event, i) => (
-              <img key={i} src={imageUrl(event, 'sm')} alt="" loading="lazy" decoding="async" width="800" height="500" />
+              <img key={i} src={imageUrl(event, 'xs')} alt="" loading="lazy" decoding="async" width="480" height="300" />
             ))}
           </div>
         ))}
