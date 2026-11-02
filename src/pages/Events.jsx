@@ -274,7 +274,7 @@ export default function Events() {
                   exit={{ opacity: 0, scale: 0.97, transition: { duration: 0.15 } }}
                   transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  <EventCard event={event} registrations={registrations} morph priority={i < 3} />
+                  <EventCard event={event} registrations={registrations} morph priority={i < 3} headingLevel={2} />
                 </motion.li>
               ))}
             </AnimatePresence>
