@@ -2,7 +2,7 @@
 
 A responsive event management website built for **K Explore, Web Designing**. Browse 25 events across eight Indian cities, search and filter them, read the details, register with a validated form, and keep your tickets on your device.
 
-**Live site:** https://mela-events.vercel.app
+**Live site:** https://mela-events-livid.vercel.app
 **Repository:** https://github.com/sayanx64/mela-events
 
 ## Features

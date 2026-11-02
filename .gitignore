@@ -27,3 +27,5 @@ dist-ssr
 .vercel
 .playwright-mcp
 coverage
+
+.vercel
