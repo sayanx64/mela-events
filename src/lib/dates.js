@@ -104,6 +104,14 @@ export function relativeStart(start, end, now = Date.now()) {
   return `In ${Math.round(days / 30)} months`
 }
 
+/** Spoken version of a countdown for screen readers, e.g. "8 days, 4 hours and 12 minutes". */
+export function countdownLabel(ms) {
+  const { days, hours, minutes } = splitDuration(ms)
+  const unit = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`
+  const parts = [days && unit(days, 'day'), (days || hours) && unit(hours, 'hour'), unit(minutes, 'minute')].filter(Boolean)
+  return parts.length > 1 ? `${parts.slice(0, -1).join(', ')} and ${parts.at(-1)}` : parts[0]
+}
+
 /** Compact countdown text, e.g. "8d 04h 12m". */
 export function compactCountdown(ms) {
   const { days, hours, minutes } = splitDuration(ms)
