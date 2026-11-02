@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en-IN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mela · Find something to do this week</title>
+    <meta
+      name="description"
+      content="Gigs, talks, workshops, food walks and screenings across eight Indian cities. Browse what's on and save your seat in under a minute."
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#F0F0EC" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#100E26" media="(prefers-color-scheme: dark)" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="mela · Go out more" />
+    <meta
+      property="og:description"
+      content="Gigs, talks, workshops, food walks and screenings across eight Indian cities."
+    />
+    <meta property="og:image" content="/og.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Apply the saved (or system) theme before first paint so there is no flash. -->
+    <script>
+      ;(function () {
+        try {
+          var saved = localStorage.getItem('mela:theme')
+          var theme =
+            saved === 'light' || saved === 'dark'
+              ? saved
+              : matchMedia('(prefers-color-scheme: dark)').matches
+                ? 'dark'
+                : 'light'
+          document.documentElement.dataset.theme = theme
+        } catch (e) {}
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>mela needs JavaScript to show events and handle registrations.</noscript>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
